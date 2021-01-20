@@ -12,6 +12,11 @@ namespace PS_APM_WebAPI_266
     {
         public static void Register(HttpConfiguration config)
         {
+
+            // 01/20/2021 05:41 am - SSN - [20210120-0517] - [001] - M04-03 - Enabling CORS in a Web API service
+            config.EnableCors();
+
+
             // Web API configuration and services
             // Configure Web API to use only bearer token authentication.
 
