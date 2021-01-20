@@ -39,6 +39,15 @@ namespace PS_APM_WebAPI_266
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            // 01/20/2021 01:11 pm - SSN - [20210120-1304] - [002] - M05-03 - Extending the URL path
+ 
+            config.Routes.MapHttpRoute(
+                name: "Api_SearchOption",
+                routeTemplate: "api/{controller}/{targetField}/{search}" 
+            );
+
+
         }
     }
 }

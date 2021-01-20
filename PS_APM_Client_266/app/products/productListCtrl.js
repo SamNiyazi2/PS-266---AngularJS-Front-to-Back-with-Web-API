@@ -16,24 +16,27 @@
         vm.searchText = "";
         vm.searchOption = "code";
 
+        vm.handleSuccess = function (data) {
+            vm.products = data;
+        }
+
         vm.doSearch = function () {
-
-            let searchQuery = {};
-
+            
             if (vm.searchText) {
 
-                searchQuery = { search: vm.searchText, targetField: vm.searchOption };
+                let searchQuery = { search: vm.searchText, targetField: vm.searchOption };
+                productResource.urlWithSearch.query(searchQuery, vm.handleSuccess );
+            }
+            else {
+                productResource.urlWithOptionalId.query(vm.handleSuccess );
+
             }
 
-            productResource.query(searchQuery, function (data) {
-                vm.products = data;
-            });
         }
 
         // 01/19/2021 05:37 pm - SSN - [20210119-1708] - [003] - M03-06 - Calling the Web API from Angular
         vm.doSearch();
-
-
-
+        
     }
+
 }());
