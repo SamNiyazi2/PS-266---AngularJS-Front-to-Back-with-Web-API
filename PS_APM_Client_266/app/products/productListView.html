@@ -5,15 +5,28 @@
         Product List
     </div>
 
+
     <div class="panel-body">
+
+
+        <div>
+
+            <label class="  control-label ">Search</label>
+            <input type="text" class=" form-control" ng-model="vm.searchText" ng-change="vm.doSearch()" />
+            <input type="radio" ng-model="vm.searchOption" value="code" ng-change="vm.doSearch()" /> &nbsp; Product code
+            <input type="radio" ng-model="vm.searchOption" value="name" ng-change="vm.doSearch()" /> &nbsp; Product name
+
+
+        </div>
+
         <table class="table">
 
             <thead>
                 <tr>
-                    <td>Product</td>
-                    <td>Code</td>
-                    <td>Available</td>
-                    <td>Price</td>
+                    <td class="cssCol1">Product</td>
+                    <td class="cssCol2">Code</td>
+                    <td class="cssCol3">Available</td>
+                    <td class="cssCol3">Price</td>
                 </tr>
             </thead>
             <tbody>

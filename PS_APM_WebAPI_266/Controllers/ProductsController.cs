@@ -16,14 +16,14 @@ namespace PS_APM_WebAPI_266.Controllers
 
 
     // https://forums.asp.net/t/1926835.aspx?Access+Control+Allow+Origin
-    public class AllowCrossSiteJsonAttribute : System.Web.Http.Filters.ActionFilterAttribute
+    public class CustomEnableCORSAttribute : System.Web.Http.Filters.ActionFilterAttribute
     {
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
 
-                if (actionExecutedContext.Response != null)
-                    actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:53772");
+            if (actionExecutedContext.Response != null)
+                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:53772");
 
 
             base.OnActionExecuted(actionExecutedContext);
@@ -34,7 +34,7 @@ namespace PS_APM_WebAPI_266.Controllers
 
     // [EnableCors("http://localhost:53772", "*", "*")]
 
-    [AllowCrossSiteJson]
+    [CustomEnableCORS]
     public class ProductsController : ApiController
     {
         // GET: api/Products
@@ -46,6 +46,30 @@ namespace PS_APM_WebAPI_266.Controllers
             var productRepository = new ProductRepository();
             return productRepository.Retrieve();
         }
+
+
+        // 01/20/2021 10:05 am - SSN - [20210120-0928] - [002] - M05-02 - Defining query strings
+
+        public IEnumerable<Product> Get(string search, string targetField)
+        {
+            var productRepository = new ProductRepository();
+
+            var results = productRepository.Retrieve();
+
+            if ( targetField == "name")
+            {
+                results = results.Where(r => r.ProductName.ToUpper().Contains(search.ToUpper())).ToList();
+            }
+            else
+            {
+                results = results.Where(r => r.ProductCode.ToUpper().Contains(search.ToUpper())).ToList();
+            }
+
+            return results;
+
+        }
+
+
 
         // GET: api/Products/5
         public string Get(int id)

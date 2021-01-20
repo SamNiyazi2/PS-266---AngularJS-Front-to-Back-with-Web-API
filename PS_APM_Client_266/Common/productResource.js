@@ -12,11 +12,8 @@
 
     function productResource($resource, appSettings) {
 
-
+        // Url , base-url
         let url = new URL("/api/products/:id", appSettings.serverPath).href;
-
-        console.log('20210119-1744');
-        console.log(url );
 
         return $resource(url);
 
