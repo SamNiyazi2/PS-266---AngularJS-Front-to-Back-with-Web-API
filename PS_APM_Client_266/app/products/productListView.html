@@ -1,4 +1,4 @@
-<div class="panel panel-primary"
+<div class="panel panel-primary" style="width:96%;margin:auto;"
      ng-controller="ProductListCtrl as vm">
     <div class="panel-heading"
          style="font-size:large">
@@ -13,10 +13,21 @@
 
             <label class="  control-label ">Search</label>
             <input type="text" class=" form-control" ng-model="vm.searchText" ng-change="vm.doSearch()" />
-            <input type="radio" ng-model="vm.searchOption" value="code" ng-change="vm.doSearch()" /> &nbsp; Product code
+            &nbsp; &nbsp; Search by: <input type="radio" ng-model="vm.searchOption" value="code" ng-change="vm.doSearch()" /> &nbsp; Product code
+            &nbsp; &nbsp; &nbsp;
             <input type="radio" ng-model="vm.searchOption" value="name" ng-change="vm.doSearch()" /> &nbsp; Product name
 
 
+
+            <div>
+
+                <select name="repeatSelect" id="repeatSelect" ng-model="vm.fieldName">
+                    <option selected value="">Select a field</option>
+                    <option ng-repeat="field in vm.fields" value="{{field}}">{{field}}</option>
+                </select>
+
+            </div>
+            <p>[{{vm.fieldName}}]</p>
         </div>
 
         <table class="table">

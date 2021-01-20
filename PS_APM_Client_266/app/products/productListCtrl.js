@@ -11,6 +11,9 @@
 
         var vm = this;
 
+        vm.fields = ["ProductName", "ProductCode", "Price"];
+        vm.FieldName = "";
+
 
         // 01/20/2021 09:41 am - SSN - [20210120-0928] - [001] - M05-02 - Defining query strings
         vm.searchText = "";
@@ -24,8 +27,16 @@
             
             if (vm.searchText) {
 
-                let searchQuery = { search: vm.searchText, targetField: vm.searchOption };
-                productResource.urlWithSearch.query(searchQuery, vm.handleSuccess );
+                let searchText1 = vm.searchText;
+
+                if (searchText1.indexOf("?") > -1) {
+                    //let searchQuery = ;
+                    //productResource.urlWithSearch.query(searchQuery, vm.handleSuccess);
+
+                } else {
+                    let searchQuery = { search: vm.searchText, targetField: vm.searchOption };
+                    productResource.urlWithSearch.query(searchQuery, vm.handleSuccess);
+                }
             }
             else {
                 productResource.urlWithOptionalId.query(vm.handleSuccess );
