@@ -51,18 +51,13 @@ namespace PS_APM_WebAPI_266.Controllers
         // 01/20/2021 04:09 pm - SSN - [20210120-1601] - [001] - M06-02 Enabling OData queries in a Web API service
         //public IEnumerable<Product> Get()
         [EnableQuery]
-        public IQueryable<Product> Get()
+        // 01/21/2021 11:39 am - SSN - [20210121-1126] - [001] - M08 - 02 - Action results - Server
+        // public IQueryable<Product> Get()
+        public IHttpActionResult Get()
         {
             var productRepository = new ProductRepository();
-            return productRepository.Retrieve().AsQueryable();
-        }
-
-
-        // 01/21/2021 09:54 am - SSN - [20210121-0822] - [004] - M07-04 - Call the Web API to save the data
-        // To fullfil requests to OPTIONS method.
-        public string Options()
-        {
-            return null; // HTTP 200 response with empty body
+            // return productRepository.Retrieve().AsQueryable();
+            return Ok(productRepository.Retrieve().AsQueryable());
         }
 
 
@@ -91,39 +86,94 @@ namespace PS_APM_WebAPI_266.Controllers
 
         // 01/20/2021 06:41 pm - SSN - [20210120-1839] - [001] - M07-02 - Building the Web API service methods 
 
-        public Product Get(int id)
+        // 01/21/2021 11:43 am - SSN - [20210121-1126] - [003] - M08 - 02 - Action results - Server
+        // IHttpActionResult
+        // public Product Get(int id)
+        public IHttpActionResult Get(int id)
         {
 
             var productRepository = new ProductRepository();
 
             if (id > 0)
-                return productRepository.Retrieve().Where(r => r.ProductId == id).FirstOrDefault();
+            {
+                Product product = productRepository.Retrieve().Where(r => r.ProductId == id).FirstOrDefault();
+                if (product == null) return NotFound();
+                return Ok(product);
+            }
             else
-                return productRepository.Create();
+                return Ok(productRepository.Create());
+
+
         }
 
 
         // 01/20/2021 06:51 pm - SSN - [20210120-1839] - [002] - M07-02 - Building the Web API service methods 
         // POST: api/Products
-        public void Post([FromBody]Product product)
+        // 01/21/2021 11:47 am - SSN - [20210121-1126] - [004] - M08 - 02 - Action results - Server
+        // IHttpActionResult
+        // public void Post([FromBody]Product product)
+        public IHttpActionResult Post([FromBody]Product product)
         {
+            if (product == null)
+            {
+                return BadRequest("Product cannot be null [PS_APM_WebAPI_20210121_1151].");
+            }
             var productRepository = new ProductRepository();
-            productRepository.Save(product);
+            Product newProduct = productRepository.Save(product);
+
+            if (newProduct == null)
+            {
+                return Conflict();
+            }
+
+            return Created<Product>(Request.RequestUri + newProduct.ProductId.ToString(), newProduct);
+
         }
 
 
         // 01/20/2021 06:52 pm - SSN - [20210120-1839] - [003] - M07-02 - Building the Web API service methods 
         // PUT: api/Products/5
+
         [HttpPut]
-        public void Put(int id, [FromBody]Product product)
+
+        // 01/21/2021 11:54 am - SSN - [20210121-1126] - [005] - M08 - 02 - Action results - Server
+        //IHttpActionResult
+
+        //public void Put(int id, [FromBody]Product product)
+        public IHttpActionResult Put(int id, [FromBody]Product product)
         {
+            if (id <= 0) return BadRequest("Invalid ID provided.");
+
+            if (product is null) return BadRequest("Product cannot be null.");
+
             var productRepository = new ProductRepository();
-            productRepository.Save(id, product);
+            Product updatedProduct = productRepository.Save(id, product);
+            if (updatedProduct == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(updatedProduct);
         }
 
         // DELETE: api/Products/5
         public void Delete(int id)
         {
         }
+
+
+        // 01/21/2021 11:42 am - SSN - [20210121-1126] - [002] - M08 - 02 - Action results - Server
+        // Commented out.  Didn't seem to have an impact after adding Access-Control-Allow-Headers
+
+        //// 01/21/2021 09:54 am - SSN - [20210121-0822] - [004] - M07-04 - Call the Web API to save the data
+        //// To fullfil requests to OPTIONS method.
+        //public string Options()
+        //{
+        //    return null; // HTTP 200 response with empty body
+        //}
+
+
+
+
     }
 }
