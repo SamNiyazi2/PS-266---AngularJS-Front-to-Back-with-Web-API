@@ -73,21 +73,35 @@ namespace PS_APM_WebAPI_266.Controllers
         }
 
 
+        // 01/20/2021 06:41 pm - SSN - [20210120-1839] - [001] - M07-02 - Building the Web API service methods 
 
-        // GET: api/Products/5
-        public string Get(int id)
+        public Product Get(int id)
         {
-            return "value";
+
+            var productRepository = new ProductRepository();
+
+            if (id > 0)
+                return productRepository.Retrieve().Where(r => r.ProductId == id).FirstOrDefault();
+            else
+                return productRepository.Create();
         }
 
+
+        // 01/20/2021 06:51 pm - SSN - [20210120-1839] - [002] - M07-02 - Building the Web API service methods 
         // POST: api/Products
-        public void Post([FromBody]string value)
+        public void Post([FromBody]Product product)
         {
+            var productRepository = new ProductRepository();
+            productRepository.Save(product);
         }
 
+
+        // 01/20/2021 06:52 pm - SSN - [20210120-1839] - [003] - M07-02 - Building the Web API service methods 
         // PUT: api/Products/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]Product product)
         {
+            var productRepository = new ProductRepository();
+            productRepository.Save(id, product);
         }
 
         // DELETE: api/Products/5
