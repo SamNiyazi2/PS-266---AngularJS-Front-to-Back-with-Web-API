@@ -14,7 +14,7 @@
         var vm = this;
         vm.product = {};
         vm.message = '';
-
+        vm.mesageClassName = "";
 
         let id = 0; // To add
         id = 5; // To edit
@@ -83,7 +83,12 @@
             console.log(callSource);
             console.log(error);
 
-            vm.message = "Server error:\r\n\r\n" + error.status + " - " + error.statusText;
+            vm.message = "Server error: " + error.status + " - " + error.statusText;
+            if (error.data && error.data.exceptionMessage) {
+
+                vm.message += "\r\n" + error.data.exceptionMessage
+            }
+            vm.mesageClassName = "alert alert-danger";
 
         }
         vm.cancel = function (editForm) {
