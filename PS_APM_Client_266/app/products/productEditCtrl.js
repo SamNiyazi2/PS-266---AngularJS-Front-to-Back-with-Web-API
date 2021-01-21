@@ -17,7 +17,8 @@
 
 
         let id = 0; // To add
-        //let id = 5; // To edit
+        id = 5; // To edit
+        //id = 55; // To trigger an error
 
         productResource.urlWithOptionalId.get({ id: id },
             function (data) {
@@ -27,6 +28,10 @@
 
                 vm.product = data;
                 vm.originalProduct = angular.copy(data);
+            },
+            function (error) {
+
+                vm.handleRrror("Error-222", error);
             });
 
         if (vm.product && vm.product.productId) {
@@ -51,6 +56,7 @@
                     function (error) {
                         console.log("20210121-0924-2 - Submit update failed");
                         console.log(error);
+                        vm.handleRrror("Error-002", error);
                     });
             }
             else {
@@ -63,12 +69,23 @@
                         vm.message = "... Save Complete";
                     },
                     function (error) {
+                        vm.handleRrror("Error-001", error);
                         console.log("20210121-0924 - Submit save failure");
                         console.log(error);
+                        vm.handleRrror("Error-003", error);
                     });
             }
         };
 
+        vm.handleRrror = function (callSource, error) {
+
+            console.log('20210121-1213');
+            console.log(callSource);
+            console.log(error);
+
+            vm.message = "Server error:\r\n\r\n" + error.status + " - " + error.statusText;
+
+        }
         vm.cancel = function (editForm) {
             editForm.$setPristine();
             vm.product = angular.copy(vm.originalProduct);
