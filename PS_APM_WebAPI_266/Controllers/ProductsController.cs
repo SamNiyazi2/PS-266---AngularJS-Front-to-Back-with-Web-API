@@ -22,13 +22,20 @@ namespace PS_APM_WebAPI_266.Controllers
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
-
             if (actionExecutedContext.Response != null)
+            {
                 actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:53772");
+                //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 
+                // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
+                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
 
+                // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
+                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type");
+            }
             base.OnActionExecuted(actionExecutedContext);
         }
+
     }
 
     // 01/20/2021 06:03 am - SSN - [20210120-0517] - [002] - M04-03 - Enabling CORS in a Web API service
@@ -49,6 +56,15 @@ namespace PS_APM_WebAPI_266.Controllers
             var productRepository = new ProductRepository();
             return productRepository.Retrieve().AsQueryable();
         }
+
+
+        // 01/21/2021 09:54 am - SSN - [20210121-0822] - [004] - M07-04 - Call the Web API to save the data
+        // To fullfil requests to OPTIONS method.
+        public string Options()
+        {
+            return null; // HTTP 200 response with empty body
+        }
+
 
 
         // 01/20/2021 10:05 am - SSN - [20210120-0928] - [002] - M05-02 - Defining query strings
@@ -98,6 +114,7 @@ namespace PS_APM_WebAPI_266.Controllers
 
         // 01/20/2021 06:52 pm - SSN - [20210120-1839] - [003] - M07-02 - Building the Web API service methods 
         // PUT: api/Products/5
+        [HttpPut]
         public void Put(int id, [FromBody]Product product)
         {
             var productRepository = new ProductRepository();

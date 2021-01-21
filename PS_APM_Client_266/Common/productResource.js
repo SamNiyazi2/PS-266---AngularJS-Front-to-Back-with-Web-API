@@ -17,9 +17,12 @@
         let url_withSearch = new URL("/api/products/:targetField/:search", appSettings.serverPath).href;
 
         // 01/20/2021 01:08 pm - SSN - [20210120-1304] - [001] - M05-03 - Extending the URL path
-
+        // 01/21/2021 08:31 am - SSN - [20210121-0822] - [001] - M07-04 - Call the Web API to save the data
+        // Add update_custom
         return {
-            urlWithOptionalId: $resource(url_withId),
+            urlWithOptionalId: $resource(url_withId, null, {
+                "update_custom": { method: "PUT" }
+            }),
             urlWithSearch: $resource(url_withSearch)
         };
 
