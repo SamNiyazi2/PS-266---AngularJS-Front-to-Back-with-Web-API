@@ -8,7 +8,6 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Cors;
 using System.Web.Http.Description;
-using System.Web.Http.Filters;
 using System.Web.Http.OData;
 
 // 01/19/2021 04:04 pm - SSN - [20210119-1601] - [001] - M03-04 - Building the Web API Controller
@@ -17,27 +16,6 @@ namespace PS_APM_WebAPI_266.Controllers
 {
 
 
-    // https://forums.asp.net/t/1926835.aspx?Access+Control+Allow+Origin
-    public class CustomEnableCORSAttribute : System.Web.Http.Filters.ActionFilterAttribute
-    {
-
-        public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
-        {
-            if (actionExecutedContext.Response != null)
-            {
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:53772");
-                //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
-
-                // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
-
-                // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type");
-            }
-            base.OnActionExecuted(actionExecutedContext);
-        }
-
-    }
 
     // 01/20/2021 06:03 am - SSN - [20210120-0517] - [002] - M04-03 - Enabling CORS in a Web API service
 

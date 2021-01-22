@@ -6,14 +6,19 @@
     'use strict';
 
     angular.module("productManagement")
-        .controller("MainCtrl", ["userAccount", MainCtrl]);
+        .controller("MainCtrl", ["exceptionHandler", "userAccount", MainCtrl]);
 
-    function MainCtrl(userAccount) {
+    function MainCtrl(exceptionHandler, userAccount) {
 
         var vm = this;
 
         vm.isLoggedIn = false;
+        vm.isRegistering = false;
+
         vm.message = "";
+        vm.messageClassName = "alert alert-info";
+
+
         vm.userData = {
             userName: "",
             email: "",
@@ -21,7 +26,37 @@
             confirmPassword: ""
         };
 
+
+        vm.requestToRegister = function (option) {
+
+            vm.isRegistering = option;
+            angular.element('[name=userName]').focus();
+
+        }
+
         vm.registerUser = function () {
+
+            vm.message = "";
+            vm.messageClassName = "alert alert-success";
+
+
+            userAccount.registerUser(vm.userData, function (data) {
+                vm.confirmPassword = "";
+                vm.message = "Registraton successful!";
+                vm.isRegistering = false;
+                vm.login();
+            },
+                function (response) {
+
+                    vm.isLoggedIn = false;
+                    vm.messageClassName = "alert alert-danger";
+
+                    vm.message = "";
+
+                    vm.message += exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl", response);
+
+                }
+            )
 
         }
 
