@@ -27,9 +27,10 @@ namespace PS_APM_WebAPI_266
 
             // 01/19/2021 02:02 pm - SSN - [20210119-1402] - [001] - M02-06 - Anatomy of an ASP.NET Web API service
             // Turn off for now
-
-            //config.SuppressDefaultHostAuthentication();
-            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            // 01/22/2021 01:19 pm - SSN - [20210122-1316] - [001] - M11-02 - Protecting a resource with the authorize attribute 
+            // Turn back on
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
             // Web API routes
             config.MapHttpAttributeRoutes();
@@ -41,10 +42,10 @@ namespace PS_APM_WebAPI_266
             );
 
             // 01/20/2021 01:11 pm - SSN - [20210120-1304] - [002] - M05-03 - Extending the URL path
- 
+
             config.Routes.MapHttpRoute(
                 name: "Api_SearchOption",
-                routeTemplate: "api/{controller}/{targetField}/{search}" 
+                routeTemplate: "api/{controller}/{targetField}/{search}"
             );
 
 

@@ -22,6 +22,7 @@ namespace PS_APM_WebAPI_266.Controllers
     // [EnableCors("http://localhost:53772", "*", "*")]
 
     [CustomEnableCORS]
+    [Authorize]
     public class ProductsController : ApiController
     {
         // GET: api/Products
