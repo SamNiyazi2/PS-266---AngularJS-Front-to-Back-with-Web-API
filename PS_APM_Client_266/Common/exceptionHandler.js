@@ -28,6 +28,11 @@
                 message += errorResponse.data.exceptionMessage + lf;
             }
 
+            if (errorResponse.data && errorResponse.data.error) {
+
+                message += errorResponse.data.error + ": " + errorResponse.data.error_description + lf;
+            }
+
             if (errorResponse.data && errorResponse.data.modelState) {
 
                 message += "Invalid input:" + lf + lf;
