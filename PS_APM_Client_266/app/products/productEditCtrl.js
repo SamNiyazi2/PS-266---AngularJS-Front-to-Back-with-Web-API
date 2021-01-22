@@ -1,3 +1,5 @@
+ 
+
 (function () {
     "use strict";
 
@@ -15,6 +17,8 @@
         vm.product = {};
         vm.message = '';
         vm.mesageClassName = "";
+        vm.byPassClientValidation = false;
+
 
         let id = 0; // To add
         id = 5; // To edit
@@ -79,16 +83,33 @@
 
         vm.handleRrror = function (callSource, error) {
 
-            console.log('20210121-1213');
+            console.log('20210121-1213-C');
             console.log(callSource);
             console.log(error);
 
             vm.message = "Server error: " + error.status + " - " + error.statusText;
             if (error.data && error.data.exceptionMessage) {
 
-                vm.message += "\r\n" + error.data.exceptionMessage
+                vm.message += "\r\n" + error.data.exceptionMessage;
             }
+
+            if (error.data && error.data.modelState) {
+
+                vm.message += "\r\n\r\nInvalid input:\r\n";
+
+                angular.forEach(error.data.modelState, (fieldNameEntry) => {
+                    fieldNameEntry.forEach(errorMessage => {
+                        vm.message += "\r\n" + errorMessage ;
+                    })
+                });
+ 
+
+            }
+
             vm.mesageClassName = "alert alert-danger";
+
+
+
 
         }
         vm.cancel = function (editForm) {

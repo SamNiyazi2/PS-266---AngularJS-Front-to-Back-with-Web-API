@@ -4,9 +4,14 @@
       ng-controller="ProductEditCtrl as vm">
     <fieldset>
         <legend>Basic Product Information</legend>
+        <div>
+            <input type="checkbox" ng-model="vm.byPassClientValidation" ng-true-value="true" /> &nbsp; Bypass client validation
+            <hr />
+        </div>
+
         <div class="form-group"
              ng-class="{'has-error':productForm.inputProductName.$invalid &&
-                                    productForm.inputProductName.$dirty}">
+                                    productForm.inputProductName.$dirty && !vm.byPassClientValidation}">
             <label class="col-md-2 control-label"
                    for="inputProductName">Product Name</label>
 
@@ -22,13 +27,13 @@
                        ng-maxlength="12" />
             </div>
             <span class="help-block has-error">
-                <span ng-show="productForm.inputProductName.$dirty && productForm.inputProductName.$error.required">
+                <span ng-show="productForm.inputProductName.$dirty && productForm.inputProductName.$error.required && !vm.byPassClientValidation">
                     Product name is required.
                 </span>
-                <span ng-show="productForm.inputProductName.$error.minlength">
+                <span ng-show="productForm.inputProductName.$error.minlength && !vm.byPassClientValidation">
                     Product name must be at least 4 characters in length.
                 </span>
-                <span ng-show="productForm.inputProductName.$error.maxlength">
+                <span ng-show="productForm.inputProductName.$error.maxlength && !vm.byPassClientValidation">
                     Product name cannot exceed 12 characters in length.
                 </span>
             </span>
@@ -36,7 +41,7 @@
 
         <div class="form-group"
              ng-class="{'has-error':productForm.inputProductCode.$invalid &&
-                                    productForm.inputProductCode.$dirty}">
+                                    productForm.inputProductCode.$dirty && !vm.byPassClientValidation}">
             <label class="col-md-2 control-label" for="inputProductCode">Product Code</label>
 
             <div class="col-md-4">
@@ -49,7 +54,7 @@
                        required>
             </div>
             <span class="help-block has-error"
-                  ng-show="productForm.inputProductCode.$dirty && productForm.inputProductCode.$invalid ">
+                  ng-show="productForm.inputProductCode.$dirty && productForm.inputProductCode.$invalid && !vm.byPassClientValidation">
                 Product Code is required
             </span>
         </div>
@@ -86,7 +91,7 @@
                     <button class="btn btn-primary"
                             style="width:80px;margin-right:10px"
                             ng-click="vm.submit()"
-                            ng-disabled="productForm.$invalid">
+                            ng-disabled="productForm.$invalid && !vm.byPassClientValidation">
                         Save
                     </button>
                 </span>
@@ -102,7 +107,7 @@
 
         <div class="form-group"
              ng-show="vm.message">
-            <div class="col-md-6 " >
+            <div class="col-md-6 ">
                 <pre style="font: inherit" class="{{vm.mesageClassName}}">{{vm.message }}</pre>
             </div>
         </div>

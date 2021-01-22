@@ -179,6 +179,14 @@ namespace PS_APM_WebAPI_266.Controllers
                 {
                     return BadRequest("Product cannot be null [PS_APM_WebAPI_20210121_1151].");
                 }
+
+
+                // 01/21/2021 05:48 pm - SSN - [20210121-1735] - [002] - M08-05 - Validation 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 var productRepository = new ProductRepository();
                 Product newProduct = productRepository.Save(product);
 
@@ -200,7 +208,10 @@ namespace PS_APM_WebAPI_266.Controllers
         // 01/20/2021 06:52 pm - SSN - [20210120-1839] - [003] - M07-02 - Building the Web API service methods 
         // PUT: api/Products/5
 
-        [HttpPut]
+
+        // 01/21/2021 05:49 pm - SSN - [20210121-1735] - [003] - M08-05 - Validation 
+        // Test turning off. Post method is not decorated.
+        // [HttpPut]
 
         // 01/21/2021 11:54 am - SSN - [20210121-1126] - [005] - M08 - 02 - Action results - Server
         //IHttpActionResult
@@ -215,6 +226,13 @@ namespace PS_APM_WebAPI_266.Controllers
             if (id <= 0) return BadRequest("Invalid ID provided.");
 
             if (product is null) return BadRequest("Product cannot be null.");
+
+
+            // 01/21/2021 05:48 pm - SSN - [20210121-1735] - [002] - M08-05 - Validation 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
             // 01/21/2021 01:13 pm - SSN - [20210121-1221] - [003] - M08 - 04 - Exception handling
             // Add try/catch block

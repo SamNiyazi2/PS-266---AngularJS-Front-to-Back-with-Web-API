@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -11,11 +12,23 @@ namespace PS_APM_WebAPI_266.Models
 {
     public class Product
     {
+        // 01/21/2021 05:40 pm - SSN - [20210121-1735] - [001] - M08-05 - Validation 
+        // Add validation rules
+
         public string Description { get; set; }
         public decimal Price { get; set; }
+
+        [Required]
+        [Display(Name = "Product code")]
         public string ProductCode { get; set; }
+
         public int ProductId { get; set; }
+
+        [Required(ErrorMessage = "Product name is required", AllowEmptyStrings = false)]
+        [MinLength(4, ErrorMessage = "Product name minimum length is {1} characters")]
+        [MaxLength(12, ErrorMessage = "Product name maximum length is {1} characters")]
         public string ProductName { get; set; }
+
         public DateTime ReleaseDate { get; set; }
 
     }
