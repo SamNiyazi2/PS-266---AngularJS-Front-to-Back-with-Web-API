@@ -9,7 +9,7 @@
     <link href="css/site.css" rel="stylesheet" />
 </head>
 
-<body ng-app="productManagement">
+<body ng-app="productManagement" ng-controller="MainCtrl as vm">
 
 
     <div class="container" style="margin-top:20px;">
@@ -17,13 +17,31 @@
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header">
+
+                    <form ng-hide="vm.isLoggedIn" class="navbar-form navbar-right">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="UserName (email)" ng-model="vm.userData.email" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control" placeholder="password" ng-model="vm.userData.password" />
+                        </div>
+                        <button type="submit" class="btn btn-default" ng-click="vm.loginspan.__group0">Login</button>
+                        <button type="submit" class="btn bt-default" ng-click="vm.registerUserspan.__group0">Register</button>
+                        <div ng-show="vm.message">{{vm.message}}</div>
+                    </form>
+
+
+
                     <div class="navbar-brand">Acme Product Management</div>
                 </div>
             </div>
         </nav>
 
-        <div ng-hide="true" ng-include="'app/products/productListView.html'"></div>
-        <div ng-include="'app/products/productEditView.html'"></div>
+        <div ng-if="vm.isLoggedIn">
+            <div ng-hide="true" ng-include="'app/products/productListView.html'"></div>
+            <div ng-include="'app/products/productEditView.html'"></div>
+        </div>
+
     </div>
 
     <!-- Library Scripts -->
@@ -39,6 +57,7 @@
     <!-- Product Controllers -->
     <script src="app/products/productListCtrl.js"></script>
     <script src="app/products/productEditCtrl.js"></script>
+    <script src="app/mainCtrl.js"></script>
 </body>
 
 </html>
