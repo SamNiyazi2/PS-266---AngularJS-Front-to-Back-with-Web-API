@@ -21,10 +21,10 @@ namespace PS_APM_WebAPI_266.Controllers
                 //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 
                 // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
+                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
 
                 // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type");
+                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type,Authorization");
             }
             base.OnActionExecuted(actionExecutedContext);
         }

@@ -6,19 +6,23 @@
     'use strict';
 
     angular.module("productManagement")
-        .controller("MainCtrl", ["exceptionHandler", "userAccount", MainCtrl]);
+        .controller("MainCtrl", ["exceptionHandler", "userAccount", "currentUser", MainCtrl]);
 
-    function MainCtrl(exceptionHandler, userAccount) {
+    function MainCtrl(exceptionHandler, userAccount, currentUser) {
 
         var vm = this;
 
-        vm.isLoggedIn = false;
+        vm.isLoggedIn = function () {
+
+            return currentUser.getProfile().isLoggedIn;
+        };
+
         vm.isRegistering = false;
 
         vm.message = "";
         vm.messageClassName = "alert alert-info";
 
-        vm.menuOptionSelected = 1;
+        vm.menuOptionSelected = 2;
 
 
         vm.userData = {
@@ -49,9 +53,8 @@
             },
                 function (response) {
 
-                    vm.isLoggedIn = false;
                     vm.messageClassName = "alert alert-danger";
-                    
+
                     vm.message = exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl", response);
 
                 }
@@ -67,11 +70,9 @@
 
             vm.messageClassName = "alert alert-info";
             vm.message = "Logging in...."
-            vm.token = "";
 
             vm.userData.grant_type = "password";
             vm.userData.userName = vm.userData.email;
-            vm.clientId = "MyClientID_101";
 
             userAccount.login.loginUser(vm.userData, function (data) {
 
@@ -79,10 +80,12 @@
                 console.log('data:');
                 console.log(data);
 
-                vm.isLoggedIn = true;
                 vm.message = "";
                 vm.password = "";
-                vm.token = data.access_token;
+
+
+                // 01/22/2021 01:43 pm - SSN - [20210122-1329] - [002] - M11-03 - Accessing a resource using an authorization header
+                currentUser.setProfile(vm.userData.userName, data.access_token);
 
             },
 
@@ -93,7 +96,7 @@
                     console.log(errorResponse);
 
                     vm.messageClassName = "alert alert-danger";
-                    
+
                     vm.message = exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl", errorResponse);
 
                 }

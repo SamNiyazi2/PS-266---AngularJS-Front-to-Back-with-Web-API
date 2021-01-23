@@ -251,11 +251,17 @@ namespace PS_APM_WebAPI_266.Controllers
 
         // 01/21/2021 02:15 pm - SSN - [20210121-1221] - [004] - M08 - 04 - Exception handling
         // Testing Put failed without this.
-        public string Options()
-        {
-            return null; // HTTP 200 response with empty body
-        }
+        // 01/22/2021 02:26 pm - SSN - [20210122-1329] - [004] - M11-03 - Accessing a resource using an authorization header
 
+        // 01/22/2021 02:54 pm - SSN - [20210122-1329] - [005] - M11-03 - Accessing a resource using an authorization header
+
+        [HttpOptions]
+        [AllowAnonymous]
+        public IHttpActionResult Options()
+        {
+            //  HttpContext.Current.Response.AppendHeader("Allow", "GET,OPTIONS");
+            return Ok();
+        }
 
 
 

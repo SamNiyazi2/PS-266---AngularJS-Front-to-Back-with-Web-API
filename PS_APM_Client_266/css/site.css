@@ -1,5 +1,10 @@
 ﻿
 
+body {
+    overflow-y: scroll;
+}
+
+
 .cssCol1 {
     width: 55%;
 }

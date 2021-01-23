@@ -18,7 +18,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
 
-                    <form ng-hide="vm.isLoggedIn" class="navbar-form navbar-right">
+                    <form ng-hide="vm.isLoggedIn()" class="navbar-form navbar-right">
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="UserName (email)" name="userName" ng-model="vm.userData.email" autofocus />
                         </div>
@@ -50,23 +50,27 @@
                     </form>
 
 
-
                     <div class="navbar-brand">Acme Product Management</div>
+
                 </div>
             </div>
         </nav>
 
-        <div ng-if="vm.isLoggedIn">
+        <div ng-if="vm.isLoggedIn()">
 
             <div>
                 <button ng-click="vm.setMenuOption(1)">Product List</button>
-                <button ng-click="vm.setMenuOption(2)">Edit Test (Hard-coded)</button>
+                <button ng-click="vm.setMenuOption(2)">Edit Test (PK Hard-coded)</button>
             </div>
             <hr />
 
             <div ng-show="vm.menuOptionSelected==1" ng-include="'app/products/productListView.html'"></div>
             <div ng-show="vm.menuOptionSelected==2" ng-include="'app/products/productEditView.html'"></div>
+
         </div>
+
+
+
 
     </div>
 
@@ -76,12 +80,14 @@
 
     <!-- Application Script -->
     <script src="app/app.js"></script>
+
+    <!-- Services -->
     <script src="Common/Common.Services.js"></script>
     <script src="Common/exceptionHandler.js"></script>
     <script src="Common/productResource.js"></script>
     <script src="Common/userAccount.js"></script>
+    <script src="Common/currentUser.js"></script>
 
-    <!-- Services -->
     <!-- Product Controllers -->
     <script src="app/products/productListCtrl.js"></script>
     <script src="app/products/productEditCtrl.js"></script>

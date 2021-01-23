@@ -29,8 +29,19 @@ namespace PS_APM_WebAPI_266
             // Turn off for now
             // 01/22/2021 01:19 pm - SSN - [20210122-1316] - [001] - M11-02 - Protecting a resource with the authorize attribute 
             // Turn back on
-            config.SuppressDefaultHostAuthentication();
-            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+
+
+            // Todo: Can we leave these out?
+            //config.SuppressDefaultHostAuthentication();
+            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+
+
+
+
+
+
+
 
             // Web API routes
             config.MapHttpAttributeRoutes();
