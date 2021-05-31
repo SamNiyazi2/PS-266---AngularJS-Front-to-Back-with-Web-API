@@ -1,54 +1,53 @@
 (function () {
+
     "use strict";
+
     angular
         .module("productManagement")
         .controller("ProductListCtrl",
-                     ProductListCtrl);
+            ["productResource", ProductListCtrl]);
 
-    function ProductListCtrl() {
+    function ProductListCtrl(productResource) {
+
         var vm = this;
 
-        vm.products = [
-        {
-            "productId": 1,
-            "productName": "Leaf Rake",
-            "productCode": "GDN-0011",
-            "releaseDate": "March 19, 2009",
-            "description": "Leaf rake with 48-inch wooden handle.",
-            "price": 19.95
-        },
-        {
-            "productId": 2,
-            "productName": "Garden Cart",
-            "productCode": "GDN-0023",
-            "releaseDate": "March 18, 2010",
-            "description": "15 gallon capacity rolling garden cart",
-            "price": 32.99
-        },
-         {
-             "productId": 5,
-             "productName": "Hammer",
-             "productCode": "TBX-0048",
-             "releaseDate": "May 21, 2013",
-             "description": "Curved claw steel hammer",
-             "price": 8.99
-         },
-         {
-             "productId": 8,
-             "productName": "Saw",
-             "productCode": "TBX-0022",
-             "releaseDate": "May 15, 2009",
-             "description": "15-inch steel blade hand saw",
-             "price": 11.55
-         },
-         {
-             "productId": 10,
-             "productName": "Video Game Controller",
-             "productCode": "GMG-0042",
-             "releaseDate": "October 15, 2002",
-             "description": "Standard two-button video game controller",
-             "price": 35.95
-         }
-        ];
+        vm.fields = ["ProductName", "ProductCode", "Price"];
+        vm.FieldName = "";
+
+
+        // 01/20/2021 09:41 am - SSN - [20210120-0928] - [001] - M05-02 - Defining query strings
+        vm.searchText = "";
+        vm.searchOption = "code";
+
+        vm.handleSuccess = function (data) {
+            vm.products = data;
+        }
+
+        vm.doSearch = function () {
+            
+            if (vm.searchText) {
+
+                let searchText1 = vm.searchText;
+
+                if (searchText1.indexOf("?") > -1) {
+                    //let searchQuery = ;
+                    //productResource.urlWithSearch.query(searchQuery, vm.handleSuccess);
+
+                } else {
+                    let searchQuery = { search: vm.searchText, targetField: vm.searchOption };
+                    productResource.urlWithSearch.query(searchQuery, vm.handleSuccess);
+                }
+            }
+            else {
+                productResource.urlWithOptionalId.query(vm.handleSuccess );
+
+            }
+
+        }
+
+        // 01/19/2021 05:37 pm - SSN - [20210119-1708] - [003] - M03-06 - Calling the Web API from Angular
+        vm.doSearch();
+        
     }
+
 }());

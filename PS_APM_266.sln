@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1321
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PS_APM_WebAPI_266", "PS_APM_WebAPI_266\PS_APM_WebAPI_266.csproj", "{622AA71A-11EE-4383-8246-9BEC7F120458}"
 EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PS_APM_Client_266", "PS_APM_Client_266\", "{FE5012A8-32C5-4380-87B3-3EC3435DB9AB}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PS_APM_Client_266(1)", "PS_APM_Client_266\", "{FE5012A8-32C5-4380-87B3-3EC3435DB9AB}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_53772"
@@ -24,6 +24,9 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PS_APM_Client_266", "PS_APM
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "53772"
 		SlnRelativePath = "PS_APM_Client_266\"
+	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{622AA71A-11EE-4383-8246-9BEC7F120458} = {622AA71A-11EE-4383-8246-9BEC7F120458}
 	EndProjectSection
 EndProject
 Global

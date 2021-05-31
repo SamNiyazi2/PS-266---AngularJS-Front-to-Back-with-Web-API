@@ -29,6 +29,26 @@ namespace PS_APM_WebAPI_266.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
+
+            // 01/22/2021 11:09 am - SSN - [20210122-0839] - [006] - M10-04 - Logging the user in
+            // Todo 
+
+
+            // string callingSiteUrl = $"{context.Request.Uri.Scheme}://{context.Request.Uri.Host}:{context.Request.Uri.Port}";
+            // Todo: We haven't been able to retrive client's address. Hard-coding for now.
+
+            //string callingSiteUrl = "https://localhost:53772xcccccc";
+            string callingSiteUrl = "http://localhost:53772";
+
+
+            List<string> approvedHosts = new List<string>();
+            approvedHosts.Add("http://localhost:53772");
+
+            if (approvedHosts.Any(r => r.ToLower() == callingSiteUrl.ToLower()))
+            {
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { callingSiteUrl });
+            }
+
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);

@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Web.Http.ModelBinding;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -19,6 +20,10 @@ using PS_APM_WebAPI_266.Results;
 
 namespace PS_APM_WebAPI_266.Controllers
 {
+    // 01/22/2021 07:19 am - SSN - [20210122-0613] - [004] - M10-03 - Registering the user
+    // Added CustomEnableCORS
+
+    [CustomEnableCORS]
     [Authorize]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
@@ -125,7 +130,7 @@ namespace PS_APM_WebAPI_266.Controllers
 
             IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword,
                 model.NewPassword);
-            
+
             if (!result.Succeeded)
             {
                 return GetErrorResult(result);
@@ -258,9 +263,9 @@ namespace PS_APM_WebAPI_266.Controllers
             if (hasRegistered)
             {
                 Authentication.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-                
-                 ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
-                    OAuthDefaults.AuthenticationType);
+
+                ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(UserManager,
+                   OAuthDefaults.AuthenticationType);
                 ClaimsIdentity cookieIdentity = await user.GenerateUserIdentityAsync(UserManager,
                     CookieAuthenticationDefaults.AuthenticationType);
 
@@ -368,7 +373,7 @@ namespace PS_APM_WebAPI_266.Controllers
             result = await UserManager.AddLoginAsync(user.Id, info.Login);
             if (!result.Succeeded)
             {
-                return GetErrorResult(result); 
+                return GetErrorResult(result);
             }
             return Ok();
         }
@@ -490,5 +495,23 @@ namespace PS_APM_WebAPI_266.Controllers
         }
 
         #endregion
+
+
+        // 01/22/2021 07:18 am - SSN - [20210122-0613] - [003] - M10-03 - Registering the user
+        [AllowAnonymous]
+        //public string Options()
+        //{
+        //    return null; // HTTP 200 response with empty body
+        //}
+        // 01/22/2021 02:54 pm - SSN - [20210122-1329] - [005] - M11-03 - Accessing a resource using an authorization header
+        // Todo:
+        [HttpOptions]
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Options()
+        {
+            HttpContext.Current.Response.AppendHeader("Allow", "GET,OPTIONS");
+            return Ok();
+        }
+
     }
 }
