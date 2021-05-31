@@ -31,9 +31,21 @@
         }
 
 
+// 05/31/2021 11:40 am - SSN - [20210531-1040] - [007] - Deploy to Azure 
+        let logout = function () {
+
+            profile.username = '';
+            profile.token = '';
+            profile.isLoggedIn = false;
+
+        }
+
+
+
         return {
             setProfile: setProfile,
-            getProfile: getProfile
+            getProfile: getProfile,
+            logout: logout
         }
     }
 

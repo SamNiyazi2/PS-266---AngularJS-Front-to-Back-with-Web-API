@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System.Data.Entity;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -24,7 +25,14 @@ namespace PS_APM_WebAPI_266.Models
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
-        
+
+        // 05/31/2021 10:40 am - SSN - [20210531-1040] - [001] - Deploy to Azure 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("PS-266");
+            base.OnModelCreating(modelBuilder);
+        }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

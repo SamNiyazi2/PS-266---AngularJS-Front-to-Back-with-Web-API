@@ -25,13 +25,26 @@
         vm.menuOptionSelected = 2;
 
 
-        vm.userData = {
-            userName: "",
-            email: "",
-            password: "",
-            confirmPassword: ""
-        };
+        //vm.userData = {
+        //    userName: "",
+        //    email: "",
+        //    password: "",
+        //    confirmPassword: ""
+        //};
 
+
+        // 05/31/2021 11:46 am - SSN - [20210531-1040] - [008] - Deploy to Azure
+
+        vm.resetUserData = function () {
+
+            vm.userData = {
+                userName: "",
+                email: "",
+                password: "",
+                confirmPassword: ""
+            };
+
+        }
 
         vm.requestToRegister = function (option) {
 
@@ -102,6 +115,45 @@
                 }
             )
         }
+
+        // 05/31/2021 11:07 am - SSN - [20210531-1040] - [002] - Deploy to Azure 
+
+        vm.logout = function () {
+
+
+
+
+
+            userAccount.logout.logoutUser(vm.userData, function (data) {
+
+                console.log('20210531-1111-logout');
+                console.log('data:');
+                console.log(data);
+
+                currentUser.logout();
+
+                vm.resetUserData();
+
+
+            },
+
+                function (errorResponse) {
+
+                    console.log('20210531-1111-logout-error');
+                    console.log('errorResponse:');
+                    console.log(errorResponse);
+
+                    vm.messageClassName = "alert alert-danger";
+
+                    vm.message = exceptionHandler.getErrorResponseMessage("20210531-1111-mainCtrl", errorResponse);
+
+                }
+            )
+
+
+
+        }
+
 
 
         vm.setMenuOption = function (value) {
