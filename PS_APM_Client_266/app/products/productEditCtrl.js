@@ -1,6 +1,5 @@
 
-
-(function () {
+let thisMod_107 = (function () {
     "use strict";
 
     // 01/21/2021 08:03 am - SSN - [20210121-0803] - [001] - M03-03- Demo: Understanding the grid system
@@ -100,4 +99,10 @@
         };
 
     }
-}());
+//}());
+});
+
+
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_107);

@@ -1,7 +1,9 @@
 ﻿
 // 01/22/2021 06:00 am - SSN - [20210122-0530] - [001] - M10-02 - Building a login form
 
-(function () {
+
+
+let thisMod_108 = (function () {
 
     'use strict';
 
@@ -22,15 +24,8 @@
         vm.message = "";
         vm.messageClassName = "alert alert-info";
 
-        vm.menuOptionSelected = 2;
+        vm.menuOptionSelected = 1;
 
-
-        //vm.userData = {
-        //    userName: "",
-        //    email: "",
-        //    password: "",
-        //    confirmPassword: ""
-        //};
 
 
         // 05/31/2021 11:46 am - SSN - [20210531-1040] - [008] - Deploy to Azure
@@ -162,5 +157,9 @@
 
     }
 
-}());
+    //}());
+});
 
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_108);

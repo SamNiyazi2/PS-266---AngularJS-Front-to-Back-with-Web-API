@@ -2,7 +2,8 @@
 
 // 01/22/2021 06:49 am - SSN - [20210122-0613] - [002] - M10-03 - Registering the user
 
-(function () {
+
+const thisMod_102 = (function () {
 
     'use strict';
 
@@ -64,5 +65,10 @@
     }
 
 
-}());
+ //}());
+});
+
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_102);
 

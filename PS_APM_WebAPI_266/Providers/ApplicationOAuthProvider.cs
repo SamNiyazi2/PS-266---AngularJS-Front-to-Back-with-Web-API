@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -25,28 +29,20 @@ namespace PS_APM_WebAPI_266.Providers
             }
 
             _publicClientId = publicClientId;
+
+
         }
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
 
             // 01/22/2021 11:09 am - SSN - [20210122-0839] - [006] - M10-04 - Logging the user in
-            // Todo 
 
+            // 05/31/2021 11:30 pm - SSN - [20210531-2330] - [001] - Validating callers
 
-            // string callingSiteUrl = $"{context.Request.Uri.Scheme}://{context.Request.Uri.Host}:{context.Request.Uri.Port}";
-            // Todo: We haven't been able to retrive client's address. Hard-coding for now.
-
-            //string callingSiteUrl = "https://localhost:53772xcccccc";
-            string callingSiteUrl = "http://localhost:53772";
-
-
-            List<string> approvedHosts = new List<string>();
-            approvedHosts.Add("http://localhost:53772");
-
-            if (approvedHosts.Any(r => r.ToLower() == callingSiteUrl.ToLower()))
+            if (NetworkUtil.CORSUtil.apiConsumerIsAuthorized(out string consumerHostName))
             {
-                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { callingSiteUrl });
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { consumerHostName });
             }
 
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();

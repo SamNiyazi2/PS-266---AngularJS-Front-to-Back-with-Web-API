@@ -33,8 +33,10 @@ namespace PS_APM_WebAPI_266
 
 
             // Todo: Can we leave these out?
-            //config.SuppressDefaultHostAuthentication();
-            //config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
+            // 06/01/2021 01:37 pm - SSN - [20210531-2330] - [006] - Validating callers
+
+            config.SuppressDefaultHostAuthentication();
+            config.Filters.Add(new HostAuthenticationFilter(OAuthDefaults.AuthenticationType));
 
 
 

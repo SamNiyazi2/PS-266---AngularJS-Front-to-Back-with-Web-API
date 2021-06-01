@@ -1,4 +1,6 @@
-(function () {
+
+
+let thisMod_106 = (function () {
 
     "use strict";
 
@@ -50,4 +52,10 @@
         
     }
 
-}());
+// ???? }());
+});
+
+
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_106);

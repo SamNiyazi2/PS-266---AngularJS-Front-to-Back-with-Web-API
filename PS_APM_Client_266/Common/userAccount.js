@@ -1,7 +1,8 @@
 ﻿
 // 01/22/2021 06:22 am - SSN - [20210122-0613] - [001] - M10-03 - Registering the user
 
-(function () {
+
+const thisMod_104 = (function () {
 
     "use strict";
 
@@ -10,7 +11,7 @@
 
     function userAccount($resource, appSettings) {
 
-
+ 
         let url_register = new URL("/api/account/register", appSettings.serverPath).href;
 
         // 01/22/2021 09:40 am - SSN - [20210122-0839] - [001] - M10-04 - Logging the user in
@@ -68,5 +69,11 @@
 
     }
 
-}());
 
+
+
+    //}());
+});
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_104);

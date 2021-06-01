@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using PS_APM_WebAPI_266.Util;
 using System.Web;
 using System.Web.Http.Filters;
 
@@ -15,17 +13,33 @@ namespace PS_APM_WebAPI_266.Controllers
 
         public override void OnActionExecuted(HttpActionExecutedContext actionExecutedContext)
         {
+            AppInsigtUtil.TrackEvent("CORSAttr", new { Step = "0601-1148-01" });
+
+
             if (actionExecutedContext.Response != null)
             {
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", "http://localhost:53772");
-                //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+                // 06/01/2021 12:02 am - SSN - [20210531-2330] - [003] - Validating callers
 
-                // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+                
+                bool isApprovied = NetworkUtil.CORSUtil.apiConsumerIsAuthorized(out string consumerHostName);
 
-                // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
-                actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type,Authorization");
+                AppInsigtUtil.TrackEvent("CORSAttr", new { Step = "0601-1148-02", consumerHostName, Approved = isApprovied , HttpContext.Current.Request.Url.AbsoluteUri});
+
+                if (isApprovied)
+                {
+
+                    actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Origin", consumerHostName);
+                    //actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+
+                    // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Method PUT is not allowed by Access-Control-Allow-Methods in preflight response.
+                    actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");
+
+                    // Access to XMLHttpRequest at 'http://localhost:58543/api/products/5' from origin 'http://localhost:53772' has been blocked by CORS policy: Request header field content-type is not allowed by Access-Control-Allow-Headers in preflight response.
+                    actionExecutedContext.Response.Headers.Add("Access-Control-Allow-Headers", "content-type,Authorization");
+
+                }
             }
+            
             base.OnActionExecuted(actionExecutedContext);
         }
 

@@ -4,7 +4,9 @@
 // 01/22/2021 02:10 pm - SSN - [20210122-1329] - [003] - M11-03 - Accessing a resource using an authorization header
 // Add currentUser to pass token.
 
-(function () {
+
+
+const thisMod_103 = (function () {
 
     'use strict';
 
@@ -51,5 +53,9 @@
 
     }
 
-}());
+//}());
+});
 
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_103);

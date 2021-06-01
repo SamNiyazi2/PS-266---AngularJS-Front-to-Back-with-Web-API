@@ -1,7 +1,8 @@
 ﻿
 // 01/22/2021 01:36 pm - SSN - [20210122-1329] - [001] - M11-03 - Accessing a resource using an authorization header
 
-(function () {
+
+const thisMod_105 = (function () {
 
     'use strict';
 
@@ -49,5 +50,10 @@
         }
     }
 
-}());
+//}());
+});
+
+
+window.mods = window.mods || [];
+window.mods.push(thisMod_105);
 

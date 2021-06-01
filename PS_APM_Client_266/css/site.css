@@ -24,3 +24,13 @@ body {
 a {
     cursor: pointer;
 }
+
+
+.cssHidden{
+    visibility:collapse;
+}
+
+#messageDiv{
+
+    margin:20px;
+}
