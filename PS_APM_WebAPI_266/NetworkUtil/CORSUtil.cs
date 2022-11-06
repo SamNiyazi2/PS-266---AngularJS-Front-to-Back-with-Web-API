@@ -15,6 +15,14 @@ namespace PS_APM_WebAPI_266.NetworkUtil
 
         public static bool apiConsumerIsAuthorized(out string consumerHostName_v3, bool testing = false)
         {
+            // 11/06/2022 10:03 am - SSN - Added for testing with Postman
+            if ( HttpContext.Current.Request.UrlReferrer == null)
+            {
+                consumerHostName_v3 = null;
+                AppInsigtUtil.TrackEvent("apiConsumerIsAuthorized", new { Step = "20221105-1545", Error = "UrlReferrer is null" });
+                return false;
+            }
+
             consumerHostName_v3 = HttpContext.Current.Request.UrlReferrer.AbsoluteUri;
 
             AppInsigtUtil.TrackEvent("apiConsumerIsAuthorized", new { Step = "101", Consumer = consumerHostName_v3 });

@@ -35,7 +35,8 @@ namespace PS_APM_WebAPI_266
             PublicClientId = "self";
             OAuthOptions = new OAuthAuthorizationServerOptions
             {
-                TokenEndpointPath = new PathString("/Token"),
+                // TokenEndpointPath = new PathString("/Token"),
+                TokenEndpointPath = new PathString("/TokeN_101"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),

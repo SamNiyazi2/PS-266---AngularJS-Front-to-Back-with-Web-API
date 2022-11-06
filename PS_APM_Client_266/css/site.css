@@ -34,3 +34,12 @@ a {
 
     margin:20px;
 }
+
+.cssHint {
+    
+    margin:10px;
+}
+    .cssHint span {
+        padding: 5px;
+        background-color: yellow;
+    }

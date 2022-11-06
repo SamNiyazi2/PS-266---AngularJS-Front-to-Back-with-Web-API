@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 
@@ -18,8 +19,12 @@ namespace PS_APM_WebAPI_266
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
 
-            // 01/20/2021 05:41 am - SSN - [20210120-0517] - [001] - M04-03 - Enabling CORS in a Web API service
-            config.EnableCors();
+
+
+            // 11/06/2022 08:45 am - SSN - Add setupCors
+            // // 01/20/2021 05:41 am - SSN - [20210120-0517] - [001] - M04-03 - Enabling CORS in a Web API service
+            // config.EnableCors();
+            setupCors(config);
 
 
             // Web API configuration and services
@@ -63,5 +68,27 @@ namespace PS_APM_WebAPI_266
 
 
         }
+
+
+
+        // 11/06/2022 08:13 am - SSN - Testing overcomming error on second login (after logout)
+        // install-package Microsoft.AspNet.WebApi.Cors
+        private static void setupCors(HttpConfiguration config)
+        {
+
+            config.EnableCors();
+
+            // No impact
+            //string origins = "*";
+            //string methods = "GET,POST,PUT,DELETE,OPTIONS";
+            //string headers = "content-type,Authorization";
+
+            // EnableCorsAttribute cors = new EnableCorsAttribute(origins, headers, methods);
+            // config.EnableCors(cors);
+
+
+        }
+
+
     }
 }

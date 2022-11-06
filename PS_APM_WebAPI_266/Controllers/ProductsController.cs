@@ -65,21 +65,33 @@ namespace PS_APM_WebAPI_266.Controllers
             // 01/21/2021 01:13 pm - SSN - [20210121-1221] - [003] - M08 - 04 - Exception handling
             // Add try/catch block
 
+            // 11/05/2022 05:43 pm - SSN - Search by price.
+
             try
             {
+                int price = 0;
+                if (targetField == "Price")
+                {
+                    int.TryParse(search, out price);
+                }
 
                 var productRepository = new ProductRepository();
 
                 var results = productRepository.Retrieve();
 
-                if (targetField == "name")
+                if (targetField == "Price")
                 {
-                    results = results.Where(r => r.ProductName.ToUpper().Contains(search.ToUpper())).ToList();
+                    results = results.Where(r => Math.Abs(r.Price - price) < 5).ToList();
                 }
-                else
+                else if (targetField == "ProductCode")
                 {
                     results = results.Where(r => r.ProductCode.ToUpper().Contains(search.ToUpper())).ToList();
                 }
+                else if (targetField == "ProductName")
+                {
+                    results = results.Where(r => r.ProductName.ToUpper().Contains(search.ToUpper())).ToList();
+                }
+
 
                 if (results == null)
                 {

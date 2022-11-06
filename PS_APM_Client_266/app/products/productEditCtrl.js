@@ -11,12 +11,15 @@ let thisMod_107 = (function () {
             ProductEditCtrl);
 
 
-    function ProductEditCtrl(exceptionHandler, productResource) {
+
+    // 11/05/2022 06:12 pm - SSN - Add $scope for $broadcast
+
+    function ProductEditCtrl($rootScope, $timeout , exceptionHandler, productResource) {
 
         var vm = this;
         vm.product = {};
         vm.message = '';
-        vm.mesageClassName = "";
+        vm.mesageClassName = "alert ";
         vm.byPassClientValidation = false;
 
 
@@ -55,7 +58,11 @@ let thisMod_107 = (function () {
 
                 vm.product.$update_custom({ id: vm.product.productId },
                     function (data) {
-                        vm.message = "... Save Complete";
+                        vm.message = "... Save Complete.  Closes in 3 second.";
+
+                        console.log('timeout-20221105-1822');
+                        $timeout(() => { vm.showProductList(); }, 3000);
+
                     },
                     function (error) {
 
@@ -69,11 +76,17 @@ let thisMod_107 = (function () {
                     function (data) {
                         vm.originalProduct = angular.copy(data);
 
-                        vm.message = "... Save Complete";
+                        vm.message = "... Save Complete. Closes in 3 second.";
+
+                        console.log('timeout-20221105-1820');
+                        $timeout(() => { vm.showProductList(); }, 3000);
+
                     },
                     function (error) {
                         vm.handleRrror("Error-003", error);
                     });
+
+
             }
         };
 
@@ -96,10 +109,21 @@ let thisMod_107 = (function () {
             vm.product = angular.copy(vm.originalProduct);
             vm.message = "";
             vm.mesageClassName = "alert alert-info";
+
+
+            vm.showProductList();
+
         };
 
+
+        // 11/05/2022 06:12 pm - SSN - Add broadcast
+        vm.showProductList = function () {
+            $rootScope.$broadcast('EVENT_SHOW_PRODUCT_LIST');
+        }
+
+
     }
-//}());
+    //}());
 });
 
 

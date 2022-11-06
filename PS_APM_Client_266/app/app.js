@@ -11,7 +11,7 @@ function mainApp() {
     //     var app = angular.module("productManagement", ["common.services"]);
     angular.module("productManagement", ["common.services"]);
 
-  
+
 
     for (const mod in window.mods) {
         (window.mods[mod])();
@@ -30,22 +30,22 @@ function mainApp() {
 
     fetch('/app/settings101.js').then(response => response.json()).then(settings => {
 
-        console.log('999999999999999999999999999999');
+        console.log('ps_APM_266-20221104-1425');
         console.log(settings)
 
         window.baseUrl = settings.apiUrl;
-        console.log(window.baseUrl )
-        mainApp(  );
+        console.log(window.baseUrl)
+        mainApp();
 
         angular.bootstrap(document, ['productManagement']);
 
     }, error => {
 
-            console.log("Failed to locate file");
-            console.log(error);
+        console.log("Failed to locate file");
+        console.log(error);
 
-            $("#messageDiv").html("Failed to load system.");
-         
+        $("#messageDiv").html("Failed to load system.");
+
     });
 
 })();

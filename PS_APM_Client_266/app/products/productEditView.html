@@ -115,9 +115,9 @@
                     </div>
                 </div>
 
-                <div class="form-group"
-                     ng-show="vm.message">
-                    <div class="col-md-6 ">
+                <!--ng-show="vm.message"-->
+                <div class="form-group">
+                    <div class="col-md-6 " ng-click="vm.showProductList()" title="Click to close.">
                         <pre style="font: inherit" class="{{vm.mesageClassName}}">{{vm.message }}</pre>
                     </div>
                 </div>

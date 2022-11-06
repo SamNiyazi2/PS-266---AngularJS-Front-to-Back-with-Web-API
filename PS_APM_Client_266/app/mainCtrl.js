@@ -8,9 +8,9 @@ let thisMod_108 = (function () {
     'use strict';
 
     angular.module("productManagement")
-        .controller("MainCtrl", ["exceptionHandler", "userAccount", "currentUser", MainCtrl]);
+        .controller("MainCtrl", ["$scope", "exceptionHandler", "userAccount", "currentUser", MainCtrl]);
 
-    function MainCtrl(exceptionHandler, userAccount, currentUser) {
+    function MainCtrl($scope, exceptionHandler, userAccount, currentUser) {
 
         var vm = this;
 
@@ -27,6 +27,15 @@ let thisMod_108 = (function () {
         vm.menuOptionSelected = 1;
 
 
+
+        // 11/05/2022 06:12 pm - SSN - Add listener
+
+        $scope.$on('EVENT_SHOW_PRODUCT_LIST', function () {
+
+            console.log('xxxxxxxx  EVENT_SHOW_PRODUCT_LIST');
+            vm.menuOptionSelected = 1;
+
+        });
 
         // 05/31/2021 11:46 am - SSN - [20210531-1040] - [008] - Deploy to Azure
 
@@ -47,6 +56,21 @@ let thisMod_108 = (function () {
 
         }
 
+
+        // 11/05/2022 12:41 pm - SSN - Set test usrename/password
+        vm.setTestUserNamePassword = function () {
+
+            console.log('mainCtrl-20221105-124 - setTestUserNamePassword');
+            vm.userData = {
+                userName: "",
+                email: "test@test.com",
+                password: "Test_User$_1201",
+                confirmPassword: ""
+            };
+
+        }
+
+
         vm.registerUser = function () {
 
             vm.message = "";
@@ -63,7 +87,7 @@ let thisMod_108 = (function () {
 
                     vm.messageClassName = "alert alert-danger";
 
-                    vm.message = exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl", response);
+                    vm.message = exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl-001", response);
 
                 }
             )
@@ -79,6 +103,27 @@ let thisMod_108 = (function () {
             vm.messageClassName = "alert alert-info";
             vm.message = "Logging in...."
 
+
+            console.log('%c ' + '20220926-2146', 'color:yellow;font-size:12px;');
+            console.dir('vm.userData:');
+            console.dir(vm.userData);
+
+            console.dir('userAccount.login:-1');
+
+            if (vm.userData == undefined) {
+                vm.messageClassName = "alert alert-danger";
+                vm.message = "User name and password are required";
+                return;
+            }
+
+            console.dir('userAccount.login-2:');
+            console.dir(userAccount);
+
+
+            console.dir('userAccount.login-3:');
+            console.dir(userAccount.login);
+
+
             vm.userData.grant_type = "password";
             vm.userData.userName = vm.userData.email;
 
@@ -89,7 +134,9 @@ let thisMod_108 = (function () {
                 console.log(data);
 
                 vm.message = "";
-                vm.password = "";
+
+                // Todo 11/05/2022 02:30 pm - SSN - Why?
+                // vm.password = "";
 
 
                 // 01/22/2021 01:43 pm - SSN - [20210122-1329] - [002] - M11-03 - Accessing a resource using an authorization header
@@ -105,7 +152,7 @@ let thisMod_108 = (function () {
 
                     vm.messageClassName = "alert alert-danger";
 
-                    vm.message = exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl", errorResponse);
+                    vm.message = exceptionHandler.getErrorResponseMessage("20210122-0708-mainCtrl-002", errorResponse);
 
                 }
             )

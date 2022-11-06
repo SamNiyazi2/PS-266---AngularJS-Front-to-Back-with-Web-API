@@ -13,9 +13,12 @@
 
             <label class="  control-label ">Search</label>
             <input type="text" class=" form-control" ng-model="vm.searchText" ng-change="vm.doSearch()" />
-            &nbsp; &nbsp; Search by: <input type="radio" ng-model="vm.searchOption" value="code" ng-change="vm.doSearch()" /> &nbsp; Product code
+            &nbsp; &nbsp; Search by: &nbsp; &nbsp;
+            <input type="radio" ng-model="vm.searchOption" value="ProductName" ng-change="vm.doSearch()" /> Product name
             &nbsp; &nbsp; &nbsp;
-            <input type="radio" ng-model="vm.searchOption" value="name" ng-change="vm.doSearch()" /> &nbsp; Product name
+            <input type="radio" ng-model="vm.searchOption" value="ProductCode" ng-change="vm.doSearch()" /> Product code
+            &nbsp; &nbsp; &nbsp;
+            <input type="radio" ng-model="vm.searchOption" value="Price" ng-change="vm.doSearch()" /> Price
 
 
 
